@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notizia/cubit/cubit.dart';
 import 'package:notizia/cubit/states.dart';
-import 'package:notizia/modules/business/business_screen.dart';
 import 'package:notizia/modules/search/search_screen.dart';
 import 'package:notizia/shared/components/widgets/build_articles.dart';
 import 'package:notizia/shared/components/widgets/component.dart';

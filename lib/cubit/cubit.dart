@@ -3,9 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notizia/cubit/states.dart';
-import 'package:notizia/modules/business/business_screen.dart';
-import 'package:notizia/modules/science/science_screen.dart';
-import 'package:notizia/modules/sports/sports_screen.dart';
+
 import 'package:notizia/shared/network/remote/dio_helper.dart';
 
 class NotiziaCubit extends Cubit<NotiziaStates> {
@@ -16,15 +14,15 @@ class NotiziaCubit extends Cubit<NotiziaStates> {
   //*************** Variables **************************//
 
   int currentIndex = 0;
-
-  List<Widget> screen = const [
-    BusinessScreen(),
-    SportsScreen(),
-    ScienceScreen()
-  ];
+  List<dynamic> articls = [];
 
 
   bool isLight = true;
+
+
+
+
+
   //*************** Methods **************************//
 
   void changeBottomNav(index) {
@@ -37,7 +35,7 @@ class NotiziaCubit extends Cubit<NotiziaStates> {
     emit(NotiziaChangeThemeState());
   }
 
-  List<dynamic> articls = [];
+
 
   void getArticlsData({required String category}) {
     emit(NotiziaGetArticlsLoadingState());
@@ -55,56 +53,6 @@ class NotiziaCubit extends Cubit<NotiziaStates> {
     });
   }
 
-  List<dynamic> business = [];
-
-  void getBusinessData() {
-    emit(NotiziaGetBusinessLoadingState());
-    DioHelper.getData(url: '/v2/top-headlines', query: {
-      'country': 'eg',
-      'apiKey': '443836f0e19e4cffb9dbef9291d0a438',
-      'category': 'business'
-    }).then((value) {
-      business = value.data['articles'];
-      emit(NotiziaGetBusinessSucessState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(NotiziaGetBusinessErrorState());
-    });
-  }
-
-  List<dynamic> sports = [];
-
-  void getSportsData() {
-    emit(NotiziaGetSportsLoadingState());
-    DioHelper.getData(url: '/v2/top-headlines', query: {
-      'country': 'eg',
-      'apiKey': '443836f0e19e4cffb9dbef9291d0a438',
-      'category': 'sports'
-    }).then((value) {
-      sports = value.data['articles'];
-      emit(NotiziaGetSportsSucessState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(NotiziaGetSportsErrorState());
-    });
-  }
-
-  List<dynamic> science = [];
-
-  void getScienceData() {
-    emit(NotiziaGetScienceLoadingState());
-    DioHelper.getData(url: '/v2/top-headlines', query: {
-      'country': 'eg',
-      'apiKey': '443836f0e19e4cffb9dbef9291d0a438',
-      'category': 'science'
-    }).then((value) {
-      science = value.data['articles'];
-      emit(NotiziaGetScienceSucessState());
-    }).catchError((error) {
-      print(error.toString());
-      emit(NotiziaGetScienceErrorState());
-    });
-  }
 
   List search = [];
 
@@ -135,10 +83,4 @@ class NotiziaCubit extends Cubit<NotiziaStates> {
 
 
 
-
-// 
-// https://newsapi.org/ ----->Base Url
-
-// v2/everything --------> End Point
-// ?q=bitcoin&apiKey=443836f0e19e4cffb9dbef9291d0a438  ------> Query
 
